@@ -1,0 +1,9 @@
+.films_list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .films_list__title {
+    margin-left: 16px;
+  }
+}
