@@ -11,6 +11,7 @@ import { IFilm } from '../../entities/film/model/models';
 import { FilmsList } from '../../widgets/films-list';
 import { useRecentlyViewedStore } from '../../entities/film';
 import { useEffect } from 'react';
+import { ErrorPanel } from '../../widgets/error-panel';
 
 export const Route = createFileRoute('/film/$id')({
   component: () => <Film/>
@@ -51,7 +52,7 @@ function Film() {
 
   return (
     <> 
-      {isSuccess &&
+      {isSuccess ?
         <Panel aria-busy={isLoading}>
           <PanelHeader className={styles.film_title}>
             {`${results[0].data?.title || ""} (${results[0].data?.original_title || ""})`}
@@ -83,6 +84,8 @@ function Film() {
           </Group>
           <FilmsList title="Similar Films" films={results[1].data || []} />
         </Panel>
+        :
+        <ErrorPanel error="Server Error. May be you forget to set API key or turn on VPN"/>
       }
     </>
   );

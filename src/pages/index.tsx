@@ -4,6 +4,7 @@ import { Panel, PanelSpinner } from '@vkontakte/vkui';
 import { useQueries } from '@tanstack/react-query';
 import { fetchPopularFilms, fetchTopRatedFilms } from '../shared';
 import { useRecentlyViewedStore } from '../entities/film';
+import { ErrorPanel } from '../widgets/error-panel';
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -34,12 +35,17 @@ function App() {
   }
 
   return (
-    isSuccess &&
-    <Panel>
-      <FilmsList title="Popular" films={results[0].data || []}/>
-      <FilmsList title="Top Rated" films={results[1].data || []}/>
-      <FilmsList title="Recently Viewed" films={recentlyViewed} />
-    </Panel>
+    <>
+    {isSuccess ? 
+      <Panel>
+        <FilmsList title="Popular" films={results[0].data || []}/>
+        <FilmsList title="Top Rated" films={results[1].data || []}/>
+        <FilmsList title="Recently Viewed" films={recentlyViewed} />
+      </Panel>
+      :
+      <ErrorPanel error="Server Error. May be you forget to set API key or turn on VPN"/>
+    }
+    </>
   )
 }
 
