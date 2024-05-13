@@ -21,7 +21,7 @@ export function FilmsList(props: IFilmsListProps) {
         {films?.map((movie) => <FilmCard key={movie.id} {...movie} />)}
       </CardScroll>
       :
-      <Text>Empty for now ^^</Text>
+      <Text className={styles.films_list__empty}>Empty for now ^^</Text>
     }
   </Div>
 
